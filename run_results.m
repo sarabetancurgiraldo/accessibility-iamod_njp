@@ -16,11 +16,13 @@ NsuffRange = [30 35 40];
 % alpha matrix - # of trips per hour for each od-pair 
 alpha           = sum(abs(D),1)/2;
 t               = G.Edges.Weight;
+X_Iamod         = Xfast;
+X_amod          = Xslow;
 
 % nOD             = 5;
 % D               = D(:,1:nOD);
-% X_Iamod         = Xfast(:,1:nOD);
-% X_amod          = Xslow(:,1:nOD);
+% X_Iamod         = X_Iamod(:,1:nOD);
+% X_amod          = X_amod(:,1:nOD);
 % R_selector      = R_selector(:,1:nOD);
 % alpha           = alpha(:,1:nOD);
 
