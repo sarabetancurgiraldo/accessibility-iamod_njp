@@ -115,8 +115,8 @@ Nsuff = NsuffRange(i_Nsuff);
 load(sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/AccSuff.mat',Nsuff,nCar,Tsuff*60));
 X_matrix = sol_AccSuff.X;
 t_AvgAcc = (sol_AccSuff.F_Iamod.*sol_AccSuff.t_Iamod + ...
-                 sol_AccSuff.F_amod.*sol_AccSuff.t_amod)./...
-                 (sol_AccSuff.F_Iamod+sol_AccSuff.F_amod);
+            sol_AccSuff.F_amod.*sol_AccSuff.t_amod)./...
+            (sol_AccSuff.F_Iamod+sol_AccSuff.F_amod);
 epsilonAcc = (max(0,t_AvgAcc-Tsuff)/Tsuff).^2;
 epsilonAcc = epsilonAcc(1:nOD);
 fp_save = sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/path_flows_AccSuff.mat',Nsuff,nCar,Tsuff*60);
