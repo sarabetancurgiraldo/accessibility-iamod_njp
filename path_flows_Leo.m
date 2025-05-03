@@ -105,13 +105,15 @@ for od_pair_idx = 1:size(X_matrix,2)
     dt_max0 = t_paths-T_max;
     dt_max0(dt_max0<0) = 0;
     obj = dt_max0'*f;
-    opts = sdpsettings('solver','gurobi','verbose',1,'showprogress', 1);
+    opts = sdpsettings('solver','gurobi');%,'verbose',1,'showprogress', 1);
     sol = optimize(cnstr,obj,opts);
     opts.gurobi.FeasibilityTol = 1e-9;
     opts.gurobi.OptimalityTol = 1e-9;
     opts.gurobi.TuneTimeLimit = 0;
     if sol.problem 
         solved_flag = 1;
+    else
+        od_pair_idx
     end
     assert(~sol.problem);
     if save_flows
