@@ -42,6 +42,12 @@ nCar = nCarRange(i_nCar);
 for i_Tsuff = 1:Ts
 Tsuff = TsuffRange(i_Tsuff);
 
+%% Optimizations
+
+% UtilitarianEfficiency
+str_save = sprintf('output/nCar/%d/Tsuff/%d/UtilEff.mat',nCar,Tsuff*60);
+UtilitarianEfficiency(nCar,G,B,nArcs,D,str_save);
+
 %% Path flow allocation
 
 % UtilitarianEfficiency
