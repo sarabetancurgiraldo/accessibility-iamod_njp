@@ -19,12 +19,12 @@ t               = G.Edges.Weight;
 X_Iamod         = Xfast;
 X_amod          = Xslow;
 
-nOD             = 5;
-D               = D(:,1:nOD);
-X_Iamod         = X_Iamod(:,1:nOD);
-X_amod          = X_amod(:,1:nOD);
-R_selector      = R_selector(:,1:nOD);
-alpha           = alpha(:,1:nOD);
+% nOD             = 5;
+% D               = D(:,1:nOD);
+% X_Iamod         = X_Iamod(:,1:nOD);
+% X_amod          = X_amod(:,1:nOD);
+% R_selector      = R_selector(:,1:nOD);
+% alpha           = alpha(:,1:nOD);
 
 %% Create object with data
 nC = length(nCarRange);
