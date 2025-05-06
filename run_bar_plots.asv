@@ -5,10 +5,10 @@ load("model/data_shortPaths.mat");
 
 load('output/J.mat');
 
-maxY            = 7000;
-% maxY            = 2500;
-file_typ        = 'pdf';
-% file_typ        = "png";
+% maxY            = 7000;
+maxY            = 2500;
+% file_typ        = 'pdf';
+file_typ        = "png";
 alpha           = sum(abs(D),1)/2;
 
 
@@ -70,7 +70,7 @@ load(fp_load);
 X = sol_utilEff.X;
 fp_save = sprintf('output/plot/nCar/%d/Tsuff/%d/modal_share_comm_UtilEff.mat',nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/nCar/%d/Tsuff/%d/modal_share_comm_UtilEff.%s',nCar,Tsuff*60,file_typ);
-metric1 = "CommSuff";
+metric1 = "Acc,Comm";
 obj_UtilEff_comm = UtilEff(i_Tsuff,i_nCar,3);
 obj1 = sprintf("%0.4f",obj_UtilEff_comm);
 l = leg(metric1,obj1,"min^2",0,0);
@@ -80,7 +80,7 @@ plot_modal_share_legend_user(Tsuff,false,fp_load,fp_save,fp_save_fig,Tavg,G, ...
 fp_load = sprintf('output/nCar/%d/Tsuff/%d/path_flows_UtilEff.mat',nCar,Tsuff*60);
 fp_save = sprintf('output/plot/nCar/%d/Tsuff/%d/modal_share_trip_UtilEff.mat',nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/nCar/%d/Tsuff/%d/modal_share_trip_UtilEff.%s',nCar,Tsuff*60,file_typ);
-metric1 = "TripSuff";
+metric1 = "Acc,Trip";
 obj_UtilEff_trip = UtilEff(i_Tsuff,i_nCar,2);
 obj1 = sprintf("%0.4f",obj_UtilEff_trip);
 l = leg(metric1,obj1,"min^2",0,0);
@@ -97,7 +97,7 @@ load(fp_load);
 X = sol_comSuff.X;
 fp_save = sprintf('output/plot/nCar/%d/Tsuff/%d/modal_share_comm_CommSuff.mat',nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/nCar/%d/Tsuff/%d/modal_share_comm_CommSuff.%s',nCar,Tsuff*60,file_typ);
-metric1 = "CommSuff";
+metric1 = "Acc,Comm";
 obj_commSuff_comm = CommSuff(i_Tsuff,i_nCar,3);
 obj1 = sprintf("%0.4f",obj_commSuff_comm);
 l = leg(metric1,obj1,"min^2",0,1);
@@ -108,7 +108,7 @@ Nsuff = NsuffRange(i_Nsuff);
 load(sprintf("output/plot/Nsuff/%d/dest_deficit.mat",Nsuff))
 fp_save = sprintf('output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_dest_CommSuff.mat',Nsuff,nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_dest_CommSuff.%s',Nsuff,nCar,Tsuff*60,file_typ);
-metric2 = "AccSuff";
+metric2 = "Acc,Dest";
 obj2 = sprintf("%0.4f",deltaN_comm_CommSuff);
 l = leg(metric1,obj1,"min^2",1,1,metric2,obj2,"N\ dest");
 plot_modal_share_legend_user(Tsuff,false,fp_load,fp_save,fp_save_fig,Tavg,G, ...
@@ -119,7 +119,7 @@ end
 fp_load = sprintf('output/nCar/%d/Tsuff/%d/path_flows_CommSuff.mat',nCar,Tsuff*60);
 fp_save = sprintf('output/plot/nCar/%d/Tsuff/%d/modal_share_trip_CommSuff.mat',nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/nCar/%d/Tsuff/%d/modal_share_trip_CommSuff.%s',nCar,Tsuff*60,file_typ);
-metric1 = "TripSuff";
+metric1 = "Acc,Trip";
 obj_commSuff_trip = CommSuff(i_Tsuff,i_nCar,2);
 obj1 = sprintf("%0.4f",obj_commSuff_trip);
 l = leg(metric1,obj1,"min^2",0,0);
@@ -130,7 +130,7 @@ Nsuff = NsuffRange(i_Nsuff);
 load(sprintf("output/plot/Nsuff/%d/dest_deficit.mat",Nsuff))
 fp_save = sprintf('output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_trip_dest_CommSuff.mat',Nsuff,nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_trip_dest_CommSuff.%s',Nsuff,nCar,Tsuff*60,file_typ);
-metric2 = "AccSuff";
+metric2 = "Acc,Dest";
 obj2 = sprintf("%0.4f",deltaN_trip_CommSuff);
 l = leg(metric1,obj1,"min^2",1,0,metric2,obj2,"N\ dest");
 plot_modal_share_legend_user(Tsuff,true,fp_load,fp_save,fp_save_fig,Tavg,G, ...
@@ -145,7 +145,7 @@ load(fp_load)
 X = sol_Tripsuff.X;
 fp_save = sprintf('output/plot/nCar/%d/Tsuff/%d/modal_share_comm_TripSuff.mat',nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/nCar/%d/Tsuff/%d/modal_share_comm_TripSuff.%s',nCar,Tsuff*60,file_typ);
-metric1 = "CommSuff";
+metric1 = "Acc,Comm";
 obj_TripSuff_comm = TripSuff(i_Tsuff,i_nCar,3);
 obj1 = sprintf("%0.4f",obj_TripSuff_comm);
 l = leg(metric1,obj1,"min^2",0,0);
@@ -156,7 +156,7 @@ Nsuff = NsuffRange(i_Nsuff);
 load(sprintf("output/plot/Nsuff/%d/dest_deficit.mat",Nsuff))
 fp_save = sprintf('output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_dest_TripSuff.mat',Nsuff,nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_dest_TripSuff.%s',Nsuff,nCar,Tsuff*60,file_typ);
-metric2 = "AccSuff";
+metric2 = "Acc,Dest";
 obj2 = sprintf("%0.4f",deltaN_comm_TripSuff);
 l = leg(metric1,obj1,"min^2",1,0,metric2,obj2,"N\ dest");
 plot_modal_share_legend_user(Tsuff,false,fp_load,fp_save,fp_save_fig,Tavg,G, ...
@@ -167,7 +167,7 @@ end
 fp_load = sprintf('output/nCar/%d/Tsuff/%d/path_flows_TripSuff.mat',nCar,Tsuff*60);
 fp_save = sprintf('output/plot/nCar/%d/Tsuff/%d/modal_share_trip_TripSuff.mat',nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/nCar/%d/Tsuff/%d/modal_share_trip_TripSuff.%s',nCar,Tsuff*60,file_typ);
-metric1 = "TripSuff";
+metric1 = "Acc,Trip";
 obj_tripSuff_trip = TripSuff(i_Tsuff,i_nCar,2);
 obj1 = sprintf("%0.4f",obj_tripSuff_trip);
 l = leg(metric1,obj1,"min^2",0,1);
@@ -178,7 +178,7 @@ Nsuff = NsuffRange(i_Nsuff);
 load(sprintf("output/plot/Nsuff/%d/dest_deficit.mat",Nsuff))
 fp_save = sprintf('output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_trip_dest_TripSuff.mat',Nsuff,nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_trip_dest_TripSuff.%s',Nsuff,nCar,Tsuff*60,file_typ);
-metric2 = "AccSuff";
+metric2 = "Acc,Dest";
 obj2 = sprintf("%0.4f",deltaN_trip_TripSuff);
 l = leg(metric1,obj1,"min^2",1,1,metric2,obj2,"N\ dest");
 plot_modal_share_legend_user(Tsuff,true,fp_load,fp_save,fp_save_fig,Tavg,G, ...
@@ -202,9 +202,9 @@ Tavg = AccSuff(1,1,1);
 X = sol_AccSuff.X;
 fp_save = sprintf('output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_AccSuff.mat',Nsuff,nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_AccSuff.%s',Nsuff,nCar,Tsuff*60,file_typ);
-metric1 = "CommSuff";
+metric1 = "Acc,Comm";
 obj1 = sprintf("%0.4f",AccSuffObj_comm_t);
-metric2 = "AccSuff";
+metric2 = "Acc,Dest";
 obj2 = sprintf("%0.4f",AccSuffObj_N);
 l = leg(metric1,obj1,"min^2",1,0,metric2,obj2,"N\ dest");
 plot_modal_share_legend_user(Tsuff,false,fp_load,fp_save,fp_save_fig,Tavg,G, ...
@@ -213,7 +213,7 @@ plot_modal_share_legend_user(Tsuff,false,fp_load,fp_save,fp_save_fig,Tavg,G, ...
 fp_load = sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/path_flows_AccSuff.mat',Nsuff,nCar,Tsuff*60);
 fp_save = sprintf('output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_trip_AccSuff.mat',Nsuff,nCar,Tsuff*60);
 fp_save_fig = sprintf('output/figures/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_trip_AccSuff.%s',Nsuff,nCar,Tsuff*60,file_typ);
-metric1 = "TripSuff";
+metric1 = "Acc,Trip";
 obj1 = sprintf("%0.4f",AccSuffObj_trip_t);
 l = leg(metric1,obj1,"min^2",1,2,metric2,obj2,"N\ dest");
 plot_modal_share_legend_user(Tsuff,true,fp_load,fp_save,fp_save_fig,Tavg,G, ...

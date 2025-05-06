@@ -19,12 +19,12 @@ t               = G.Edges.Weight;
 X_Iamod         = Xfast;
 X_amod          = Xslow;
 
-% nOD             = 5;
-% D               = D(:,1:nOD);
-% X_Iamod         = X_Iamod(:,1:nOD);
-% X_amod          = X_amod(:,1:nOD);
-% R_selector      = R_selector(:,1:nOD);
-% alpha           = alpha(:,1:nOD);
+nOD             = 5;
+D               = D(:,1:nOD);
+X_Iamod         = X_Iamod(:,1:nOD);
+X_amod          = X_amod(:,1:nOD);
+R_selector      = R_selector(:,1:nOD);
+alpha           = alpha(:,1:nOD);
 
 %% Create object with data
 nC = length(nCarRange);
@@ -34,7 +34,7 @@ Ns = length(NsuffRange);
 UtilEff = zeros(Ts,nC,3);
 CommSuff = zeros(Ts,nC,3);
 TripSuff = zeros(Ts,nC,3);
-AccSuff = cell{Ns};%(Ts,nC,3);
+AccSuff = cell(Ns);%(Ts,nC,3);
 
 for i_nCar = 1:nC
 nCar = nCarRange(i_nCar); 
