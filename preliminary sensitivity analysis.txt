@@ -1,0 +1,14 @@
+Varying nCar:
+Travel time is reduced for all optimization objectives when the number of cars increases. 
+When no cars, the travel time is the highest and the insufficiency related to commute and trips is the highest. 
+Increasing the number of cars, achieves a lower trip insufficiency for all optimization objectives. 
+Surprisingly, even when there are more cars available, commute insufficiency does not decrease when optimizing for commute sufficiency. When comparing to trip insufficiency, one notices that the values are the same (when optimizing for trip sufficiency and when the cars available are 4000 and 5000), this can suggest that there are od-pairs poorly connected because these od-pairs may be served already by the fastest mode. 
+
+Varying Tsuff:
+Travel times are reduced when optimizing for commute sufficiency and the sufficient time threshold is increased. This suggests that minimizing average travel time of the users becomes more relevant as more commutes are below the time threshold. Surprisingly, when optimizing for trip sufficiency and increasing the time threshold, the travel times increase. This might be related to users being routed to use active modes as probably many of these trips become accessible as the time threshold increases.
+Notably, commute sufficiency and trip sufficiency take the same values when optimizing for each. This might be related to a resource allocation when optimizing for trip sufficiency that achieves at the same time the best commute sufficiency. 
+
+Varying Nsuff:
+Increasing the thresholds for accessibility, decreases the accessibility sufficiency. This is due to the increased difficulty to achieve the sufficiency per region.
+Values of accessibility when optimizing for commute and trip sufficiency tend to increase as the accessibility threshold increases. This is related to the previous statement.
+Notably, the travel time when optimizing for accessibility sufficiency, decreases as the accessibility threshold increases. This might be related to prioritizing resources for very long trips as now, it is needed for them to be below the time threshold in order to achieve the accessibility sufficiency.

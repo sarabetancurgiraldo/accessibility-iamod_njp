@@ -118,7 +118,7 @@ end
 
 save(fp_save,'T');
 
-figure('Position',3*[0 0 192 (2/3)*144])%,'visible','off');
+figure('Position',3*[0 0 192 (2/3)*144],'visible','off');
 hold on;
 grid on;
 box on;

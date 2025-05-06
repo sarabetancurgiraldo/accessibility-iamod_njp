@@ -5,6 +5,7 @@ load("model/data_shortPaths.mat");
 
 load('output/J.mat');
 
+% maxY            = 7000;
 maxY            = 2500;
 % file_typ        = 'pdf';
 file_typ        = "png";
@@ -200,7 +201,7 @@ Tavg = AccSuff(1,1,1);
 % AccessibilitySufficiency commute-based 
 X = sol_AccSuff.X;
 fp_save = sprintf('output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_AccSuff.mat',Nsuff,nCar,Tsuff*60);
-fp_save_fig = sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_AccSuff.%s',Nsuff,nCar,Tsuff*60,file_typ);
+fp_save_fig = sprintf('output/figures/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_AccSuff.%s',Nsuff,nCar,Tsuff*60,file_typ);
 metric1 = "Acc,Comm";
 obj1 = sprintf("%0.4f",AccSuffObj_comm_t);
 metric2 = "Acc,Dest";
