@@ -3,24 +3,140 @@ close all; clear; clc;
 load('model/data_g.mat');
 load("model/data_shortPaths.mat");
 
-nCar = 4000;
-Tsuff = 20/60;
+nCarRange = [3e3 4e3 5e3];
+TsuffRange = [15/60 20/60 25/60];
 NsuffRange = [30 35 40];
+
+Ts = length(TsuffRange);
+nC = length(nCarRange);
 Ns = length(NsuffRange);
 
-for i_Nsuff = 1:Ns
-Nsuff = NsuffRange(i_Nsuff);
 
+%%
+for i_nCar = 1:nC
+for i_Tsuff = 1:Ts
+for i_Nsuff = 1:Ns
+
+nCar = nCarRange(i_nCar);
+Tsuff = TsuffRange(i_Tsuff);
+Nsuff = NsuffRange(i_Nsuff);
 
 load(sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/J.mat',Nsuff,nCar,Tsuff*60));
 fp_load = sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/AccSuff.mat',Nsuff,nCar,Tsuff*60);
 load(fp_load);
 load(sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/AFI_heatmap_AccSuff.mat',Nsuff,nCar,Tsuff*60));
 
+AccSuffObj_N = population_region'*sol_AccSuff.u_r/sum(population_region)/Nsuff;
+
 Tavg = AccSuff(1,1,1); 
+TripSuff_ = AccSuff(1,1,2); 
+CommSuff_ = AccSuff(1,1,3); 
 
-sprintf(['AccSuff: \n' ...
-        'Travel time: %.4f'], Tavg)
+sprintf(['nCar: %d \n' ...
+        'Tsuff: %d \n' ...
+        'Nsuff: %d \n'...
+        'AccSuff: %.4f \n' ...
+        'Travel time: %.4f \n' ...
+        'CommSuff: %.4f \n' ...
+        'TripSuff: %.4f'], nCar, Tsuff*60, Nsuff, AccSuffObj_N, Tavg, CommSuff_, TripSuff_)
 
-pause
+% pause
 end
+end
+end
+
+%%
+
+nCarRange = [2e3 3e3 4e3 5e3];
+
+nC = length(nCarRange);
+
+for i_nCar = 1:nC
+for i_Tsuff = 1:Ts
+for i_Nsuff = 1:Ns
+
+nCar = nCarRange(i_nCar);
+Tsuff = TsuffRange(i_Tsuff);
+Nsuff = NsuffRange(i_Nsuff);
+
+% CommSuff DestDeficit
+load(sprintf('output/nCar/%d/Tsuff/%d/AFI_heatmap_CommSuff.mat',nCar,Tsuff*60));
+b_OD = zeros(nOD,1); b_OD(find(~AFI_epsilons)) = 1; 
+dest_def_comm_CommSuff = max(0,Nsuff-R_selector*b_OD);
+deltaN_comm_CommSuff = population_region'*dest_def_comm_CommSuff/sum(population_region)/Nsuff;
+b_path = zeros(nOD,1); b_path(find(~AFI)) = 1; 
+dest_def_trip_CommSuff = max(0,Nsuff-R_selector*b_path);
+deltaN_trip_CommSuff = population_region'*dest_def_trip_CommSuff/sum(population_region)/Nsuff;
+
+% TripSuff DestDeficit
+load(sprintf('output/nCar/%d/Tsuff/%d/AFI_heatmap_TripSuff.mat',nCar,Tsuff*60));
+b_OD = zeros(nOD,1); b_OD(find(~AFI_epsilons)) = 1; 
+dest_def_comm_TripSuff = max(0,Nsuff-R_selector*b_OD);
+deltaN_comm_TripSuff = population_region'*dest_def_comm_TripSuff/sum(population_region)/Nsuff;
+b_path = zeros(nOD,1); b_path(find(~AFI)) = 1; 
+dest_def_trip_TripSuff = max(0,Nsuff-R_selector*b_path);
+deltaN_trip_TripSuff = population_region'*dest_def_trip_TripSuff/sum(population_region)/Nsuff;
+
+
+sprintf(['nCar: %d \n' ...
+        'Tsuff: %d \n' ...
+        'Nsuff: %d \n'...
+        'AccSuff Comm Comm: %.4f \n' ...
+        'AccSuff Comm Trip: %.4f \n' ...
+        'AccSuff Trip Comm: %.4f \n' ...
+        'AccSuff Trip Trip: %.4f'], ...
+        nCar, Tsuff*60, Nsuff, ...
+        deltaN_comm_CommSuff, deltaN_trip_CommSuff, deltaN_comm_TripSuff, deltaN_trip_TripSuff)
+
+
+end
+end
+end
+
+%%
+load('output/J_2000.mat')
+
+nCarRange = [2e3];
+TsuffRange = [15/60 20/60 25/60];
+NsuffRange = [30 35 40];
+
+
+nC = length(nCarRange);
+
+for i_nCar = 1:nC
+for i_Tsuff = 1:Ts
+for i_Nsuff = 1:Ns
+
+nCar = nCarRange(i_nCar);
+Tsuff = TsuffRange(i_Tsuff);
+Nsuff = NsuffRange(i_Nsuff);
+
+
+Tavg = AccSuff{i_Nsuff,i_Tsuff,i_nCar,1};
+TripInsuff = AccSuff{i_Nsuff,i_Tsuff,i_nCar,2};
+CommInsuff = AccSuff{i_Nsuff,i_Tsuff,i_nCar,3};
+
+fp_load = sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/AccSuff.mat',Nsuff,nCar,Tsuff*60);
+load(fp_load);
+
+load(sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/AFI_heatmap_AccSuff.mat',Nsuff,nCar,Tsuff*60));
+AccSuffObj_N = population_region'*sol_AccSuff.u_r/sum(population_region)/Nsuff;
+
+sprintf(['nCar: %d \n' ...
+        'Tsuff: %d \n' ...
+        'Nsuff: %d \n'...
+        'Travel time: %.4f \n' ...
+        'CommSuff: %.4f \n' ...
+        'TripSuff: %.4f \n' ...
+        'AccSuff: %.4f'], ...
+        nCar, Tsuff*60, Nsuff, Tavg, CommInsuff, TripInsuff, AccSuffObj_N)
+
+
+
+
+
+end
+end
+end
+
+

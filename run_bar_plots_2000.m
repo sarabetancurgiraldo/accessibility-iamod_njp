@@ -3,7 +3,7 @@ close all; clear; clc;
 load('model/data_g.mat');
 load("model/data_shortPaths.mat");
 
-load('output/J.mat');
+load('output/J_2000.mat');
 
 maxY            = 7000;
 % maxY            = 2500;
@@ -17,7 +17,8 @@ alpha           = sum(abs(D),1)/2;
 % R_selector      = R_selector(:,1:nOD);
 % alpha           = alpha(:,1:nOD);
 
-nCarRange = [0 3e3 4e3 5e3];
+nCarRange = [2e3];
+% nCarRange = [0 3e3 4e3 5e3];
 TsuffRange = [15/60 20/60 25/60];
 NsuffRange = [30 35 40];
 
@@ -189,15 +190,15 @@ end
 for i_Nsuff = 1:Ns
 Nsuff = NsuffRange(i_Nsuff);
 
-load(sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/J.mat',Nsuff,nCar,Tsuff*60));
+% load(sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/J.mat',Nsuff,nCar,Tsuff*60));
 fp_load = sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/AccSuff.mat',Nsuff,nCar,Tsuff*60);
 load(fp_load);
 load(sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/AFI_heatmap_AccSuff.mat',Nsuff,nCar,Tsuff*60));
 AccSuffObj_N = population_region'*sol_AccSuff.u_r/sum(population_region)/Nsuff;
-AccSuffObj_comm_t = AccSuff(1,1,3);
-AccSuffObj_trip_t = AccSuff(1,1,2);
+AccSuffObj_comm_t = AccSuff{i_Nsuff,i_Tsuff,i_nCar,3}; % AccSuff(1,1,3);
+AccSuffObj_trip_t = AccSuff{i_Nsuff,i_Tsuff,i_nCar,2}; % AccSuff(1,1,2);
 
-Tavg = AccSuff(1,1,1); 
+Tavg = AccSuff{i_Nsuff,i_Tsuff,i_nCar,1}; % AccSuff(1,1,1); 
 % AccessibilitySufficiency commute-based 
 X = sol_AccSuff.X;
 fp_save = sprintf('output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_AccSuff.mat',Nsuff,nCar,Tsuff*60);
