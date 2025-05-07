@@ -5,8 +5,7 @@ load("model/data_shortPaths.mat");
 
 load('output/J.mat');
 
-maxY            = 7000;
-% maxY            = 2500;
+maxY            = 8000;
 file_typ        = 'pdf';
 % file_typ        = "png";
 alpha           = sum(abs(D),1)/2;
@@ -17,7 +16,7 @@ alpha           = sum(abs(D),1)/2;
 % R_selector      = R_selector(:,1:nOD);
 % alpha           = alpha(:,1:nOD);
 
-nCarRange = [0 3e3 4e3 5e3];
+nCarRange = [0 2e3 3e3 4e3 5e3];
 TsuffRange = [15/60 20/60 25/60];
 NsuffRange = [30 35 40];
 
@@ -54,11 +53,11 @@ b_path = zeros(nOD,1); b_path(find(~AFI)) = 1;
 dest_def_trip_TripSuff = max(0,Nsuff-R_selector*b_path);
 deltaN_trip_TripSuff = population_region'*dest_def_trip_TripSuff/sum(population_region)/Nsuff;
 
-save(sprintf("output/plot/Nsuff/%d/dest_deficit.mat",Nsuff), ...
-     "dest_def_comm_CommSuff","dest_def_trip_CommSuff", ...
-     "dest_def_comm_TripSuff","dest_def_trip_TripSuff", ...
-     "deltaN_comm_CommSuff","deltaN_trip_CommSuff", ...
-     "deltaN_comm_TripSuff","deltaN_trip_TripSuff")
+save(sprintf("output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/dest_deficit.mat",Nsuff,nCar,Tsuff*60), ...
+             "dest_def_comm_CommSuff","dest_def_trip_CommSuff", ...
+             "dest_def_comm_TripSuff","dest_def_trip_TripSuff", ...
+             "deltaN_comm_CommSuff","deltaN_trip_CommSuff", ...
+             "deltaN_comm_TripSuff","deltaN_trip_TripSuff")
 end
 end
 
@@ -194,10 +193,10 @@ fp_load = sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/AccSuff.mat',Nsuff,nCar,Tsuf
 load(fp_load);
 load(sprintf('output/Nsuff/%d/nCar/%d/Tsuff/%d/AFI_heatmap_AccSuff.mat',Nsuff,nCar,Tsuff*60));
 AccSuffObj_N = population_region'*sol_AccSuff.u_r/sum(population_region)/Nsuff;
-AccSuffObj_comm_t = AccSuff(1,1,3);
-AccSuffObj_trip_t = AccSuff(1,1,2);
+AccSuffObj_comm_t = AccSuff{i_Nsuff,i_Tsuff,i_nCar,3};
+AccSuffObj_trip_t = AccSuff{i_Nsuff,i_Tsuff,i_nCar,2};
 
-Tavg = AccSuff(1,1,1); 
+Tavg = {i_Nsuff,i_Tsuff,i_nCar,1}; 
 % AccessibilitySufficiency commute-based 
 X = sol_AccSuff.X;
 fp_save = sprintf('output/plot/Nsuff/%d/nCar/%d/Tsuff/%d/modal_share_comm_AccSuff.mat',Nsuff,nCar,Tsuff*60);
@@ -223,57 +222,6 @@ end
 end
 end
 
-%{
-%% Modal share Diff
-
-T_max = Tsuff;
-
-% % OD-based (Average)
-minTT = load('output/plot/modal_share_OD_minTT.mat');
-AvgAcc = load('output/plot/modal_share_OD_avgAcc.mat');
-pathAcc = load('output/plot/modal_share_OD_pathAcc.mat');
-destAcc = load('output/plot/modal_share_OD_destAcc.mat');
-
-% AvgAcc vs minTT
-fp_save = sprintf('output/figures/modal_share_dif_OD_AvgTT.%s',file_typ);
-plot_modal_share_dif(T_max, AvgAcc, minTT, fp_save, 'Average')
-
-% AvgAcc vs PathAcc 
-fp_save = sprintf('output/figures/modal_share_dif_OD_AvgPath.%s',file_typ);
-plot_modal_share_dif(T_max, pathAcc, AvgAcc, fp_save, 'Average')
-
-% AvgAcc vs Dest
-fp_save = sprintf('output/figures/modal_share_dif_OD_AvgDest.%s',file_typ);
-plot_modal_share_dif(T_max, destAcc, AvgAcc, fp_save, 'Average')
-
-% PathAcc vs Dest 
-fp_save = sprintf('output/figures/modal_share_dif_OD_PathDest.%s',file_typ);
-plot_modal_share_dif(T_max, destAcc, pathAcc, fp_save, 'Average')
-
-
-% Path-based
-minTT = load('output/plot/modal_share_path_minTT.mat');
-AvgAcc = load('output/plot/modal_share_path_avgAcc.mat');
-pathAcc = load('output/plot/modal_share_path_pathAcc.mat');
-destAcc = load('output/plot/modal_share_path_destAcc.mat');
-
-% AvgAcc vs minTT
-fp_save = sprintf('output/figures/modal_share_dif_path_AvgTT.%s',file_typ);
-plot_modal_share_dif(T_max, AvgAcc, minTT, fp_save, 'Path')
-
-% AvgAcc vs PathAcc
-fp_save = sprintf('output/figures/modal_share_dif_path_AvgPath.%s',file_typ);
-plot_modal_share_dif(T_max, pathAcc, AvgAcc, fp_save, 'Path')
-
-% AvgAcc vs dest
-fp_save = sprintf('output/figures/modal_share_dif_path_AvgDest.%s',file_typ);
-plot_modal_share_dif(T_max, destAcc, AvgAcc, fp_save, 'Path')
-
-% PathAcc vs dest 
-fp_save = sprintf('output/figures/modal_share_dif_path_PathDest.%s',file_typ);
-plot_modal_share_dif(T_max, destAcc, pathAcc, fp_save, 'Path')
-
-%}
 
 function l = leg(m1,o1,u1,multi_obj,star_opt,m2,o2,u2)
 l1 = ["$J_{\mathrm{",m1,"}}$"];
