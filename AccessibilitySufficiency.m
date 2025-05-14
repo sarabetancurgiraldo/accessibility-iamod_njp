@@ -44,7 +44,7 @@ Cons            = [Bcar*(sum(X(arcsCar,:),2)+xR)                == 0;
                    F_Iamod                                      >= 0;
                    F_amod                                       >= 0
                    (F_Iamod.*E_Iamod+F_amod.*E_amod)./alpha     <= (1-b)*M; 
-                   u_r                                          >= (Nsuff - N)/Nsuff;   
+                   u_r                                          >= ((Nsuff - N)/Nsuff).^2;   
                    u_r                                          >= 0]; 
 
 
