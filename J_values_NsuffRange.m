@@ -3,6 +3,7 @@ close all; clear; clc;
 load('model/data_g.mat');
 load("model/data_shortPaths.mat");
 load('output/J.mat');
+load('output/J_AccSuff.mat');
 
 nCarRange = [0 2e3 3e3 4e3 5e3];
 TsuffRange = [15/60 20/60 25/60];

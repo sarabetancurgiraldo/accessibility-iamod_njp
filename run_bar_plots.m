@@ -4,6 +4,7 @@ load('model/data_g.mat');
 load("model/data_shortPaths.mat");
 
 load('output/J.mat');
+load('output/J_AccSuff.mat');
 
 maxY            = 8500;
 file_typ        = 'pdf';
